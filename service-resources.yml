@@ -1,0 +1,38 @@
+server:
+  port: 8083
+
+spring:
+  config:
+    activate:
+      on-profile: default
+  application:
+    name: service-resources
+  datasource:
+    url: jdbc:mysql://${service-resources-db:localhost}:3309/service-resources-db
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+--- # Testing configuration
+
+server:
+  port: ${random.int(5000,5100)}
+
+spring:
+  config:
+    activate:
+      on-profile: test
+  application:
+    name: ticket-price
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: raul
+    password: raul
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
